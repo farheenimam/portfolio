@@ -219,14 +219,64 @@
   .cards.col3{grid-template-columns:1fr 1fr 1fr;}
 
   /* SERVICES */
-  .srv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:20px;}
-  .srv-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;
-    padding:20px 18px;transition:all 0.15s;cursor:default;}
-  .srv-card:hover{border-color:var(--purple-lo);background:var(--surface2);}
-  .srv-icon{font-size:22px;margin-bottom:10px;color:var(--purple);}
-  .srv-title{font-family:'Anybody',sans-serif;font-size:14px;font-weight:700;
-    color:var(--text-1);margin-bottom:8px;}
-  .srv-desc{font-size:11px;color:var(--text-3);line-height:1.7;}
+  .svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+  .svc-card{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:10px;overflow:hidden;
+    cursor:pointer;transition:border-color 0.2s;
+  }
+  .svc-card:hover{border-color:var(--purple-lo);}
+  .svc-card.expanded{border-color:var(--purple);}
+  .svc-canvas{display:block;width:100%;}
+  .svc-body{padding:14px 16px;}
+  .svc-num{font-size:9px;color:var(--text-4);letter-spacing:2px;margin-bottom:4px;}
+  .svc-title{font-size:14px;color:var(--text-1);font-weight:600;margin-bottom:6px;}
+  .svc-desc{font-size:11px;color:var(--text-3);line-height:1.7;margin-bottom:10px;}
+  .svc-stack{display:flex;gap:5px;flex-wrap:wrap;}
+  .svc-tag{font-size:8px;letter-spacing:0.8px;padding:2px 7px;border-radius:3px;border:1px solid var(--border2);color:var(--text-3);}
+  .svc-card.expanded .svc-title{color:var(--purple);}
+  .svc-card.expanded .svc-tag{border-color:var(--purple-lo);color:var(--purple);}
+  .svc-cta{
+    background:var(--bg2);border:1px solid var(--purple-lo);
+    border-radius:10px;overflow:hidden;
+  }
+  .svc-cta-inner{
+    padding:20px 24px;display:flex;align-items:center;
+    gap:20px;position:relative;
+  }
+  .svc-cta-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0.4;}
+  .svc-cta-text{flex:1;position:relative;z-index:1;}
+  .svc-cta-title{font-family:'Anybody',sans-serif;font-size:18px;font-weight:700;color:var(--text-1);margin-bottom:4px;}
+  .svc-cta-sub{font-size:11px;color:var(--text-3);}
+  .svc-cta-btn{
+    font-size:11px;letter-spacing:1px;padding:10px 20px;
+    background:var(--purple-lo);color:#fff;border-radius:6px;
+    cursor:pointer;white-space:nowrap;transition:opacity 0.2s;
+    position:relative;z-index:1;flex-shrink:0;
+  }
+  .svc-cta-btn:hover{opacity:0.85;}
+
+  /* BLOG */
+  .blog-featured{
+    display:grid;grid-template-columns:1fr 1fr;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:8px;overflow:hidden;
+    margin-top:20px;margin-bottom:14px;cursor:pointer;transition:all 0.15s;}
+  .blog-featured:hover{border-color:var(--purple-lo);box-shadow:var(--shadow);}
+  .bf-img{width:100%;height:100%;min-height:130px;object-fit:cover;filter:var(--img-filter);}
+  .bf-body{padding:20px 22px;display:flex;flex-direction:column;justify-content:center;}
+  .bf-tag{font-size:8px;letter-spacing:3px;color:var(--purple);margin-bottom:7px;}
+  .bf-title{font-family:'Anybody',sans-serif;font-size:17px;font-weight:700;
+    color:var(--text-1);line-height:1.3;margin-bottom:7px;}
+  .bf-date{font-size:8px;color:var(--text-3);letter-spacing:2px;}
+  .blog-list{display:flex;flex-direction:column;}
+  .blog-row{display:flex;align-items:center;gap:14px;padding:10px 0;
+    border-bottom:1px solid var(--border);cursor:pointer;transition:all 0.15s;}
+  .blog-row:hover .blog-title{color:var(--text-1);}
+  .blog-row:last-child{border-bottom:none;}
+  .blog-date-sm{font-size:9px;color:var(--text-3);min-width:66px;letter-spacing:0.8px;}
+  .blog-title{font-size:11px;color:var(--text-2);transition:color 0.15s;}
+  .blog-arr{margin-left:auto;color:var(--text-4);font-size:12px;}
 
   /* CONTACT */
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:20px;}
@@ -304,20 +354,47 @@
     border-radius:5px;padding:4px 8px;font-size:9px;color:var(--text-1);
     pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;white-space:nowrap;}
 
-  /* EDUCATION TIMELINE */
-  .edu-timeline{display:flex;flex-direction:column;gap:0;margin-top:20px;position:relative;}
-  .edu-timeline::before{content:'';position:absolute;left:16px;top:0;bottom:0;width:1px;background:var(--border2);}
-  .edu-item{display:flex;gap:20px;padding:0 0 28px 0;position:relative;}
-  .edu-dot{width:10px;height:10px;border-radius:50%;background:var(--purple);
-    border:2px solid var(--purple-lo);flex-shrink:0;margin-top:4px;
-    position:relative;z-index:1;margin-left:12px;}
-  .edu-content{flex:1;background:var(--surface);border:1px solid var(--border);
-    border-radius:8px;padding:14px 16px;margin-left:6px;transition:border-color 0.15s;}
-  .edu-content:hover{border-color:var(--purple-lo);}
-  .edu-year{font-size:9px;letter-spacing:2px;color:var(--purple);margin-bottom:4px;}
-  .edu-school{font-family:'Anybody',sans-serif;font-size:14px;font-weight:700;
-    color:var(--text-1);margin-bottom:6px;}
-  .edu-desc{font-size:11px;color:var(--text-3);line-height:1.65;}
+  /* EDUCATION */
+  .edu-timeline{display:flex;flex-direction:column;gap:0;}
+  .edu-card{
+    display:grid;grid-template-columns:90px 1fr;
+    gap:20px;align-items:start;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:10px;padding:20px;
+    transition:border-color 0.2s;
+  }
+  .edu-card:hover{border-color:var(--purple-lo);}
+  .edu-card.active-card{border-color:var(--purple-lo);background:var(--bg2);}
+  .edu-card-left{display:flex;justify-content:center;}
+  .edu-card-body{flex:1;min-width:0;}
+  .edu-canvas{border-radius:8px;display:block;}
+  .edu-tag{
+    font-size:8px;letter-spacing:3px;color:var(--purple);
+    border:1px solid var(--purple-lo);border-radius:3px;
+    padding:2px 8px;display:inline-block;margin-bottom:8px;
+  }
+  .edu-degree{font-size:14px;color:var(--text-1);font-weight:600;margin-bottom:4px;}
+  .edu-school{font-size:11px;color:var(--text-3);margin-bottom:3px;}
+  .edu-year{font-size:10px;color:var(--text-4);letter-spacing:1px;margin-bottom:10px;}
+  .edu-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+  .edu-badge{
+    font-size:8px;letter-spacing:1px;padding:3px 9px;
+    border-radius:3px;border:1px solid var(--border2);color:var(--text-3);
+  }
+  .edu-desc{font-size:11px;color:var(--text-3);line-height:1.7;}
+  .edu-divider{height:28px;display:flex;align-items:center;padding-left:44px;}
+  .edu-line{width:2px;height:100%;background:var(--border2);border-radius:1px;}
+  .cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .cert-card{
+    display:flex;align-items:center;gap:12px;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:8px;padding:12px 14px;
+    transition:border-color 0.2s;cursor:default;
+  }
+  .cert-card:hover{border-color:var(--purple-lo);}
+  .cert-canvas{border-radius:6px;flex-shrink:0;}
+  .cert-name{font-size:11px;color:var(--text-1);font-weight:600;margin-bottom:3px;}
+  .cert-issuer{font-size:9px;color:var(--text-3);letter-spacing:0.8px;}
 
   /* RESPONSIVE */
   @media (max-width: 880px) {
@@ -408,7 +485,8 @@
   <div class="tab"        id="tab-skills"     onclick="go('skills')">    <div class="tab-dot"></div>skills.py<span class="tab-x">x</span></div>
   <div class="tab"        id="tab-projects"   onclick="go('projects')">  <div class="tab-dot"></div>projects/<span class="tab-x">x</span></div>
   <div class="tab"        id="tab-education"  onclick="go('education')"> <div class="tab-dot"></div>education.md<span class="tab-x">x</span></div>
-  <div class="tab"        id="tab-services"   onclick="go('services')">  <div class="tab-dot"></div>services/<span class="tab-x">x</span></div>
+  <div class="tab"        id="tab-services"   onclick="go('services')">  <div class="tab-dot"></div>services.py<span class="tab-x">x</span></div>
+  <div class="tab"        id="tab-blog"       onclick="go('blog')">      <div class="tab-dot"></div>blog/<span class="tab-x">x</span></div>
   <div class="tab"        id="tab-github"     onclick="go('github')">    <div class="tab-dot"></div>github.stats<span class="tab-x">x</span></div>
   <div class="tab"        id="tab-contact"    onclick="go('contact')">   <div class="tab-dot"></div>contact.py<span class="tab-x">x</span></div>
 </div>
@@ -424,6 +502,7 @@
     <button class="act-btn"        id="act-projects"   onclick="go('projects')"  title="Projects">PR</button>
     <button class="act-btn"        id="act-education"  onclick="go('education')" title="Education">ED</button>
     <button class="act-btn"        id="act-services"   onclick="go('services')"  title="Services">SV</button>
+    <button class="act-btn"        id="act-blog"       onclick="go('blog')"      title="Blog">BL</button>
     <button class="act-btn"        id="act-github"     onclick="go('github')"    title="GitHub">GH</button>
     <button class="act-btn"        id="act-contact"    onclick="go('contact')"   title="Contact">CT</button>
   </div>
@@ -438,7 +517,8 @@
         <div class="sb-item"        id="nav-skills"    onclick="go('skills')">    <i class="sb-file-icon">py</i> skills.py</div>
         <div class="sb-item"        id="nav-projects"  onclick="go('projects')">  <i class="sb-file-icon">[]</i> projects/</div>
         <div class="sb-item"        id="nav-education" onclick="go('education')"> <i class="sb-file-icon">md</i> education.md</div>
-        <div class="sb-item"        id="nav-services"  onclick="go('services')">  <i class="sb-file-icon">[]</i> services/</div>
+        <div class="sb-item"        id="nav-services"  onclick="go('services')">  <i class="sb-file-icon">py</i> services.py</div>
+        <div class="sb-item"        id="nav-blog"      onclick="go('blog')">      <i class="sb-file-icon">[]</i> blog/</div>
         <div class="sb-item"        id="nav-github"    onclick="go('github')">    <i class="sb-file-icon">gh</i> github.stats</div>
         <div class="sb-item"        id="nav-contact"   onclick="go('contact')">   <i class="sb-file-icon">py</i> contact.py</div>
       </div>
@@ -602,45 +682,78 @@
     <!-- EDUCATION -->
     <div class="panel" id="panel-education">
       <div class="panel-inner">
-        <div class="eyebrow">education.md &mdash; journey</div>
-        <h1>Where I&rsquo;ve <span class="cp">learned.</span></h1>
-        <p>Academic path and certifications that shaped my engineering mindset.</p>
+        <div class="eyebrow">education.md &mdash; academic path</div>
+        <h1>Where I <span class="cp">learned.</span></h1>
+        <p style="margin-bottom:28px">University rank holder with a <em>4.0 GPA</em>. Building at the intersection of computer science and software engineering.</p>
 
         <div class="edu-timeline">
 
-          <div class="edu-item">
-            <div class="edu-dot"></div>
-            <div class="edu-content">
-              <div class="edu-year">2010 &ndash; 2020</div>
-              <div class="edu-school">St. Patrick Girls High School</div>
-              <div class="edu-desc">Completed primary and secondary schooling. Built early foundations in mathematics and science.</div>
+          <div class="edu-card active-card">
+            <div class="edu-card-left">
+              <canvas id="c-edu1" width="80" height="80" class="edu-canvas"></canvas>
+            </div>
+            <div class="edu-card-body">
+              <div class="edu-tag">CURRENT</div>
+              <div class="edu-degree">Bachelor of Science &mdash; Computer Science</div>
+              <div class="edu-school">SZABIST University &mdash; Karachi, PK</div>
+              <div class="edu-year">2023 &ndash; Present</div>
+              <div class="edu-badges">
+                <div class="edu-badge" style="color:var(--purple);border-color:var(--purple-lo)">GPA 4.0</div>
+                <div class="edu-badge" style="color:var(--green);border-color:var(--green)">Rank Holder</div>
+                <div class="edu-badge" style="color:var(--blue);border-color:var(--blue)">CS Degree</div>
+              </div>
+              <div class="edu-desc">Focused on algorithms, systems programming, and software engineering. Consistently maintaining a 4.0 GPA across all semesters at Shaheed Zulfikar Ali Bhutto Institute of Science and Technology.</div>
             </div>
           </div>
 
-          <div class="edu-item">
-            <div class="edu-dot"></div>
-            <div class="edu-content">
+          <div class="edu-divider"><div class="edu-line"></div></div>
+
+          <div class="edu-card">
+            <div class="edu-card-left">
+              <canvas id="c-edu2" width="80" height="80" class="edu-canvas"></canvas>
+            </div>
+            <div class="edu-card-body">
+              <div class="edu-tag" style="color:var(--yellow);border-color:var(--yellow)">CERTIFIED</div>
+              <div class="edu-degree">CS50 &amp; CS50AI</div>
+              <div class="edu-school">Harvard University (Online)</div>
+              <div class="edu-year">2022</div>
+              <div class="edu-badges">
+                <div class="edu-badge">C &middot; Python</div>
+                <div class="edu-badge">Algorithms</div>
+                <div class="edu-badge">AI with Python</div>
+              </div>
+              <div class="edu-desc">Completed Harvard's CS50 (Computer Science) and CS50AI (Artificial Intelligence with Python) by David J. Malan and Brian Yu.</div>
+            </div>
+          </div>
+
+          <div class="edu-divider"><div class="edu-line"></div></div>
+
+          <div class="edu-card">
+            <div class="edu-card-left">
+              <canvas id="c-edu3" width="80" height="80" class="edu-canvas"></canvas>
+            </div>
+            <div class="edu-card-body">
+              <div class="edu-tag" style="color:var(--text-3);border-color:var(--border2)">COMPLETED</div>
+              <div class="edu-degree">Intermediate &mdash; FSc / ICS</div>
+              <div class="edu-school">Govt. College for Women, Nazimabad &mdash; Karachi</div>
               <div class="edu-year">2020 &ndash; 2022</div>
-              <div class="edu-school">Govt. College for Women, Nazimabad</div>
-              <div class="edu-desc">Completed intermediate education (FSc/ICS). Strengthened analytical and problem-solving skills.</div>
+              <div class="edu-badges">
+                <div class="edu-badge">Mathematics</div>
+                <div class="edu-badge">Physics</div>
+                <div class="edu-badge">Computer Science</div>
+              </div>
             </div>
           </div>
 
-          <div class="edu-item">
-            <div class="edu-dot" style="background:var(--yellow);border-color:var(--yellow)"></div>
-            <div class="edu-content">
-              <div class="edu-year" style="color:var(--yellow)">2022</div>
-              <div class="edu-school">Harvard University &mdash; CS50 &amp; CS50AI</div>
-              <div class="edu-desc">Completed CS50 (Introduction to Computer Science) and CS50AI (Artificial Intelligence with Python), taught by David J. Malan and Brian Yu. Covered C, Python, algorithms, data structures, and AI concepts.</div>
-            </div>
-          </div>
+          <div class="edu-divider"><div class="edu-line"></div></div>
 
-          <div class="edu-item">
-            <div class="edu-dot" style="background:var(--blue);border-color:var(--blue)"></div>
-            <div class="edu-content">
-              <div class="edu-year" style="color:var(--blue)">2023 &ndash; present</div>
-              <div class="edu-school">SZABIST University</div>
-              <div class="edu-desc">Currently pursuing a Bachelor&rsquo;s degree in Computer Science at Shaheed Zulfikar Ali Bhutto Institute of Science and Technology, Karachi. GPA: 4.0.</div>
+          <div style="margin-top:8px">
+            <div class="eyebrow" style="margin-bottom:14px">certifications &amp; courses</div>
+            <div class="cert-grid">
+              <div class="cert-card"><canvas id="c-cert1" width="44" height="44" class="cert-canvas"></canvas><div><div class="cert-name">CS50 &mdash; Computer Science</div><div class="cert-issuer">Harvard University &middot; 2022</div></div></div>
+              <div class="cert-card"><canvas id="c-cert2" width="44" height="44" class="cert-canvas"></canvas><div><div class="cert-name">CS50AI &mdash; AI with Python</div><div class="cert-issuer">Harvard University &middot; 2022</div></div></div>
+              <div class="cert-card"><canvas id="c-cert3" width="44" height="44" class="cert-canvas"></canvas><div><div class="cert-name">Python Programming</div><div class="cert-issuer">Self-paced &middot; 2023</div></div></div>
+              <div class="cert-card"><canvas id="c-cert4" width="44" height="44" class="cert-canvas"></canvas><div><div class="cert-name">Spring Boot &amp; Java Backend</div><div class="cert-issuer">Online Courses &middot; 2024</div></div></div>
             </div>
           </div>
 
@@ -651,29 +764,86 @@
     <!-- SERVICES -->
     <div class="panel" id="panel-services">
       <div class="panel-inner">
-        <div class="eyebrow">services/ &mdash; what I offer</div>
-        <h1>How I can <span class="cp">help.</span></h1>
-        <p>Areas where I bring the most value to a project or team.</p>
-        <div class="srv-grid">
+        <div class="eyebrow">services.py &mdash; what I offer</div>
+        <h1>What I <span class="cp">build for</span><br><span class="cb">you.</span></h1>
+        <p style="margin-bottom:28px">Available for internships, collaboration, and backend development projects.</p>
 
-          <div class="srv-card">
-            <div class="srv-icon">&#x7B;&#x7D;</div>
-            <div class="srv-title">Backend Development</div>
-            <div class="srv-desc">I build robust server-side systems using Python (Flask, Streamlit) and Java (Spring Boot). REST APIs, authentication flows, business logic &mdash; end-to-end.</div>
+        <div class="svc-grid">
+
+          <div class="svc-card" onclick="this.classList.toggle('expanded')">
+            <canvas id="c-svc1" width="280" height="90" class="svc-canvas"></canvas>
+            <div class="svc-body">
+              <div class="svc-num">01</div>
+              <div class="svc-title">Backend Development</div>
+              <div class="svc-desc">I build robust server-side systems using Python (Flask, Streamlit) and Java (Spring Boot). REST APIs, authentication flows, business logic &mdash; end-to-end.</div>
+              <div class="svc-stack"><div class="svc-tag">Java</div><div class="svc-tag">Spring Boot</div><div class="svc-tag">Python</div><div class="svc-tag">Flask</div></div>
+            </div>
           </div>
 
-          <div class="srv-card">
-            <div class="srv-icon">&#x1F5C4;</div>
-            <div class="srv-title">Database Development</div>
-            <div class="srv-desc">Proficient in SQLite3 and MySQL. Experience with CRUD operations, schema design, database-app integration, and XAMPP for local development and testing.</div>
+          <div class="svc-card" onclick="this.classList.toggle('expanded')">
+            <canvas id="c-svc2" width="280" height="90" class="svc-canvas"></canvas>
+            <div class="svc-body">
+              <div class="svc-num">02</div>
+              <div class="svc-title">Database Development</div>
+              <div class="svc-desc">Proficient in SQLite3 and MySQL. Experience with CRUD operations, schema design, database-app integration, and XAMPP for local development and testing.</div>
+              <div class="svc-stack"><div class="svc-tag">SQLite</div><div class="svc-tag">MySQL</div><div class="svc-tag">CRUD</div><div class="svc-tag">XAMPP</div></div>
+            </div>
           </div>
 
-          <div class="srv-card">
-            <div class="srv-icon">&#x2728;</div>
-            <div class="srv-title">Frontend Development</div>
-            <div class="srv-desc">Solid understanding of HTML, CSS, and Bootstrap. I craft responsive, visually consistent UIs that work across devices and screen sizes.</div>
+          <div class="svc-card" onclick="this.classList.toggle('expanded')">
+            <canvas id="c-svc3" width="280" height="90" class="svc-canvas"></canvas>
+            <div class="svc-body">
+              <div class="svc-num">03</div>
+              <div class="svc-title">Frontend Development</div>
+              <div class="svc-desc">Solid understanding of HTML, CSS, and Bootstrap. I craft responsive, visually consistent UIs that work across devices and screen sizes.</div>
+              <div class="svc-stack"><div class="svc-tag">HTML</div><div class="svc-tag">CSS</div><div class="svc-tag">Bootstrap</div><div class="svc-tag">Responsive</div></div>
+            </div>
           </div>
 
+          <div class="svc-card" onclick="this.classList.toggle('expanded')">
+            <canvas id="c-svc4" width="280" height="90" class="svc-canvas"></canvas>
+            <div class="svc-body">
+              <div class="svc-num">04</div>
+              <div class="svc-title">Scripting &amp; Automation</div>
+              <div class="svc-desc">Custom Python scripts, CLI tools, and automation utilities built for productivity. From file processors to quiz engines to data scrapers.</div>
+              <div class="svc-stack"><div class="svc-tag">Python</div><div class="svc-tag">CLI</div><div class="svc-tag">Automation</div><div class="svc-tag">Scripts</div></div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="svc-cta">
+          <div class="svc-cta-inner">
+            <canvas id="c-cta" width="100%" height="60" class="svc-cta-canvas"></canvas>
+            <div class="svc-cta-text">
+              <div class="svc-cta-title">Ready to build something?</div>
+              <div class="svc-cta-sub">Open to internships, collaborations, and backend projects.</div>
+            </div>
+            <div class="svc-cta-btn" onclick="go('contact')">Get in touch &rarr;</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BLOG -->
+    <div class="panel" id="panel-blog">
+      <div class="panel-inner">
+        <div class="eyebrow">blog/ &mdash; writings</div>
+        <h1>Things I <span class="cp">write about.</span></h1>
+        <div class="blog-featured">
+          <img src="https://images.unsplash.com/photo-1655720828018-edd2daec9349?w=600&q=75" class="bf-img" alt="featured"/>
+          <div class="bf-body">
+            <div class="bf-tag">FEATURED POST</div>
+            <div class="bf-title">How I built a Python Flask API from scratch &mdash; lessons learned</div>
+            <div class="bf-date">MAY 2026</div>
+          </div>
+        </div>
+        <div class="blog-list">
+          <div class="blog-row"><div class="blog-date-sm">APR 2026</div><div class="blog-title">Spring Boot vs Flask &mdash; when to use what as a student</div><div class="blog-arr">&rarr;</div></div>
+          <div class="blog-row"><div class="blog-date-sm">MAR 2026</div><div class="blog-title">CS50 changed how I think about programming</div><div class="blog-arr">&rarr;</div></div>
+          <div class="blog-row"><div class="blog-date-sm">FEB 2026</div><div class="blog-title">Maintaining a 4.0 GPA while building real projects</div><div class="blog-arr">&rarr;</div></div>
+          <div class="blog-row"><div class="blog-date-sm">JAN 2026</div><div class="blog-title">SQLite vs MySQL &mdash; a practical comparison for beginners</div><div class="blog-arr">&rarr;</div></div>
         </div>
       </div>
     </div>
@@ -765,6 +935,10 @@
               </a>
               <a href="mailto:farheenimam331@gmail.com" class="contact-item">
                 <div><div class="cp-label">EMAIL</div><div class="cp-handle">farheenimam331@gmail.com</div></div>
+                <div class="cp-arr">&rarr;</div>
+              </a>
+              <a href="https://twitter.com/farheenimam" target="_blank" class="contact-item">
+                <div><div class="cp-label">TWITTER / X</div><div class="cp-handle">@farheenimam</div></div>
                 <div class="cp-arr">&rarr;</div>
               </a>
             </div>
@@ -962,6 +1136,116 @@ function drawSkillFlow(cv, t, color, label) {
   c.fillText(label,4,H-5);
 }
 
+// ── EDUCATION CANVAS ANIMATIONS ──
+function drawGpaRing(cv, t) {
+  const c = cv.getContext('2d'), W = cv.width, H = cv.height;
+  const isDark = dk();
+  c.clearRect(0,0,W,H);
+  const cx = W/2, cy = H/2, r = Math.min(W,H)*0.38;
+  c.beginPath(); c.arc(cx,cy,r,0,Math.PI*2);
+  c.strokeStyle = isDark?'rgba(203,166,247,0.15)':'rgba(124,58,237,0.1)'; c.lineWidth=2; c.stroke();
+  const prog = (0.9 + Math.sin(t)*0.02);
+  c.beginPath(); c.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+Math.PI*2*prog);
+  c.strokeStyle = isDark?'#cba6f7':'#7c3aed'; c.lineWidth=2.5;
+  c.lineCap='round'; c.stroke();
+  c.fillStyle = isDark?'#cba6f7':'#7c3aed';
+  c.font = 'bold 18px Anybody,sans-serif'; c.textAlign='center'; c.textBaseline='middle';
+  c.fillText('4.0', cx, cy-4);
+  c.font = '7px IBM Plex Mono,monospace';
+  c.fillStyle = isDark?'#6c7086':'#8c8fa1';
+  c.fillText('GPA', cx, cy+10);
+}
+
+function drawRankStar(cv, t) {
+  const c = cv.getContext('2d'), W = cv.width, H = cv.height;
+  const isDark = dk();
+  c.clearRect(0,0,W,H);
+  const cx = W/2, cy = H/2;
+  const pulse = 1 + Math.sin(t*2)*0.06;
+  const g = c.createRadialGradient(cx,cy,0,cx,cy,W*0.45);
+  g.addColorStop(0, isDark?'rgba(249,226,175,0.18)':'rgba(223,142,29,0.12)');
+  g.addColorStop(1,'rgba(0,0,0,0)');
+  c.beginPath(); c.arc(cx,cy,W*0.45,0,Math.PI*2); c.fillStyle=g; c.fill();
+  const spikes=5, outerR=W*0.32*pulse, innerR=W*0.14*pulse;
+  c.beginPath();
+  for(let i=0;i<spikes*2;i++){
+    const r2 = i%2===0?outerR:innerR;
+    const angle = (i*Math.PI/spikes) - Math.PI/2;
+    i===0 ? c.moveTo(cx+Math.cos(angle)*r2, cy+Math.sin(angle)*r2)
+           : c.lineTo(cx+Math.cos(angle)*r2, cy+Math.sin(angle)*r2);
+  }
+  c.closePath();
+  c.fillStyle = isDark?'rgba(249,226,175,0.8)':'rgba(223,142,29,0.7)'; c.fill();
+  c.strokeStyle = isDark?'#f9e2af':'#df8e1d'; c.lineWidth=1; c.stroke();
+  c.fillStyle = isDark?'#1e1e2e':'#fff';
+  c.font = 'bold 13px Anybody,sans-serif'; c.textAlign='center'; c.textBaseline='middle';
+  c.fillText('#1', cx, cy);
+}
+
+function drawEduCompleted(cv, t) {
+  const c = cv.getContext('2d'), W = cv.width, H = cv.height;
+  const isDark = dk();
+  c.clearRect(0,0,W,H);
+  const cx=W/2, cy=H/2;
+  c.beginPath(); c.arc(cx,cy,W*0.38,0,Math.PI*2);
+  c.strokeStyle=isDark?'rgba(137,180,250,0.3)':'rgba(30,102,245,0.2)'; c.lineWidth=1.5; c.stroke();
+  for(let i=0;i<6;i++){
+    const a=(i/6)*Math.PI*2+t*0.3;
+    const r=W*0.28+Math.sin(t*1.5+i)*3;
+    c.beginPath(); c.arc(cx+Math.cos(a)*r, cy+Math.sin(a)*r, 2.5, 0, Math.PI*2);
+    c.fillStyle=isDark?`rgba(137,180,250,${0.4+Math.sin(t+i)*0.2})`:`rgba(30,102,245,0.4)`; c.fill();
+  }
+  c.beginPath(); c.moveTo(cx-10,cy); c.lineTo(cx-3,cy+8); c.lineTo(cx+10,cy-7);
+  c.strokeStyle=isDark?'rgba(137,180,250,0.9)':'rgba(30,102,245,0.8)'; c.lineWidth=2.5; c.lineCap='round'; c.stroke();
+}
+
+function drawCertBadge(cv, t, color) {
+  const c = cv.getContext('2d'), W=cv.width, H=cv.height;
+  const isDark = dk();
+  c.clearRect(0,0,W,H);
+  const cx=W/2, cy=H/2;
+  c.beginPath();
+  for(let i=0;i<6;i++){
+    const a = (i*Math.PI/3) - Math.PI/6 + Math.sin(t)*0.03;
+    const r = W*0.42;
+    i===0 ? c.moveTo(cx+Math.cos(a)*r, cy+Math.sin(a)*r)
+           : c.lineTo(cx+Math.cos(a)*r, cy+Math.sin(a)*r);
+  }
+  c.closePath();
+  c.fillStyle = isDark?`rgba(${color},0.1)`:`rgba(${color},0.08)`;
+  c.strokeStyle = `rgba(${color},0.6)`; c.lineWidth=1.5; c.fill(); c.stroke();
+  c.beginPath(); c.moveTo(cx-8,cy); c.lineTo(cx-2,cy+6); c.lineTo(cx+8,cy-6);
+  c.strokeStyle=`rgba(${color},0.9)`; c.lineWidth=2; c.lineCap='round'; c.stroke();
+}
+
+// ── SERVICES CANVAS ANIMATIONS ──
+function drawSvcAgent(cv, t)  { drawAgentWeb(cv, t); }
+function drawSvcFlow(cv, t)   { drawPipeline(cv, t); }
+function drawSvcLLM(cv, t)    { drawGitGraph(cv, t); }
+function drawSvcPython(cv, t) { drawSkillPulse(cv, t, '203,166,247', 'SCRIPTS'); }
+
+function drawCtaBg(cv, t) {
+  const c = cv.getContext('2d'), W=cv.offsetWidth||400, H=cv.offsetHeight||60;
+  cv.width=W; cv.height=H;
+  const isDark = dk();
+  c.clearRect(0,0,W,H);
+  for(let i=0;i<6;i++){
+    const x = (i/5)*W + Math.sin(t+i)*15;
+    const y = H/2 + Math.cos(t*0.8+i)*8;
+    const r = 3+Math.sin(t*1.5+i)*1;
+    c.beginPath(); c.arc(x,y,r,0,Math.PI*2);
+    c.fillStyle=isDark?`rgba(203,166,247,${0.3+Math.sin(t+i)*0.1})`:`rgba(124,58,237,${0.2+Math.sin(t+i)*0.08})`;
+    c.fill();
+    if(i<5){
+      const nx=(((i+1)/5)*W)+Math.sin(t+(i+1))*15;
+      const ny=H/2+Math.cos(t*0.8+(i+1))*8;
+      c.beginPath(); c.moveTo(x,y); c.lineTo(nx,ny);
+      c.strokeStyle=isDark?'rgba(203,166,247,0.15)':'rgba(124,58,237,0.1)';
+      c.lineWidth=0.8; c.stroke();
+    }
+  }
+}
+
 function syncCanvases() {
   document.querySelectorAll('canvas.anim-cv').forEach(cv => {
     const rect = cv.getBoundingClientRect();
@@ -975,15 +1259,31 @@ function syncCanvases() {
 }
 
 const canvasDrawMap = {
+  // projects
   'c-p1': (cv,t)=>drawAgentWeb(cv,t),
   'c-p2': (cv,t)=>drawPipeline(cv,t),
   'c-p3': (cv,t)=>drawGitGraph(cv,t),
+  // skills
   'c-s1': (cv,t)=>drawSkillPulse(cv,t,'249,226,175','JAVA'),
   'c-s2': (cv,t)=>drawSkillFlow(cv,t,'137,180,250','PYTHON'),
   'c-s3': (cv,t)=>drawSkillPulse(cv,t,'166,227,161','C LANG'),
   'c-s4': (cv,t)=>drawSkillFlow(cv,t,'249,226,175','SQL'),
   'c-s5': (cv,t)=>drawSkillPulse(cv,t,'203,166,247','HTML/CSS'),
   'c-s6': (cv,t)=>drawSkillFlow(cv,t,'166,227,161','LINUX'),
+  // education
+  'c-edu1': (cv,t)=>drawGpaRing(cv,t),
+  'c-edu2': (cv,t)=>drawRankStar(cv,t),
+  'c-edu3': (cv,t)=>drawEduCompleted(cv,t),
+  'c-cert1': (cv,t)=>drawCertBadge(cv,t,'203,166,247'),
+  'c-cert2': (cv,t)=>drawCertBadge(cv,t,'249,226,175'),
+  'c-cert3': (cv,t)=>drawCertBadge(cv,t,'137,180,250'),
+  'c-cert4': (cv,t)=>drawCertBadge(cv,t,'166,227,161'),
+  // services
+  'c-svc1': (cv,t)=>drawSvcAgent(cv,t),
+  'c-svc2': (cv,t)=>drawSvcFlow(cv,t),
+  'c-svc3': (cv,t)=>drawSvcLLM(cv,t),
+  'c-svc4': (cv,t)=>drawSvcPython(cv,t),
+  'c-cta':  (cv,t)=>drawCtaBg(cv,t),
 };
 
 let _resizeTick = 0;
