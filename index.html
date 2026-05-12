@@ -376,6 +376,10 @@
       letter-spacing: 0.5px;
     }
 
+    .m-icon, .m-label { display: none; }
+    .d-icon { display: block; }
+    .sb-profile-m { display: none; }
+
     .act-btn:hover {
       color: var(--text-1);
       background: var(--border);
@@ -387,12 +391,16 @@
     }
 
     .act-btn.toggle {
-      color: var(--text-2);
+      color: var(--text-1);
     }
 
-    .act-btn.toggle:hover {
-      background: var(--border);
-      color: var(--text-1);
+    .act-btn.toggle svg {
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .act-btn.toggle:hover svg {
+      opacity: 1;
     }
 
     /* SIDEBAR */
@@ -1929,14 +1937,57 @@
       }
 
       #actbar {
-        width: 100%;
-        height: 46px;
+        position: fixed;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 400px;
+        height: 64px;
+        background: rgba(var(--bg2-rgb), 0.8);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        display: flex;
         flex-direction: row;
         justify-content: space-around;
-        padding: 0 6px;
-        border-right: 0;
-        border-bottom: 1px solid var(--border);
-        flex-shrink: 0;
+        align-items: center;
+        padding: 0 10px;
+        z-index: 100;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      }
+
+      .act-btn {
+        flex-direction: column;
+        gap: 4px;
+        height: auto;
+        font-size: 8px;
+        color: var(--text-4);
+      }
+
+      .act-btn svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .act-btn.active {
+        color: var(--purple);
+        background: transparent;
+      }
+
+      .act-btn.active::after {
+        content: '';
+        width: 4px;
+        height: 4px;
+        background: var(--purple);
+        border-radius: 50%;
+        margin-top: 2px;
+        box-shadow: 0 0 8px var(--purple);
+      }
+
+      #tabbar {
+        display: none;
       }
 
       .act-btn {
@@ -1949,20 +2000,50 @@
         left: 0;
         top: 0;
         bottom: 0;
-        z-index: 30;
-        box-shadow: var(--shadow);
-        width: 240px;
+        z-index: 150;
+        background: var(--bg2);
+        box-shadow: 20px 0 50px rgba(0, 0, 0, 0.5);
+        width: 280px;
         transform: translateX(-100%);
-        transition: transform 0.25s ease;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 20px 0;
       }
 
-      #sidebar.collapsed {
-        transform: translateX(-100%);
-      }
-
-      #sidebar:not(.collapsed) {
+      #sidebar.mobile-open {
         transform: translateX(0);
       }
+
+      .sb-profile-m {
+        padding: 20px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 10px;
+      }
+
+      .sb-profile-m img {
+        width: 60px;
+        height: 60px;
+        border-radius: 15px;
+        margin-bottom: 12px;
+        border: 2px solid var(--purple-lo);
+      }
+
+      .sb-profile-m .name {
+        font-family: 'Anybody', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-1);
+      }
+
+      .sb-profile-m .role {
+        font-size: 10px;
+        color: var(--text-3);
+        letter-spacing: 1px;
+      }
+
+      .m-icon, .m-label { display: flex; }
+      .d-icon { display: none; }
+      .d-only { display: none; }
+      .sb-profile-m { display: block; }
 
       #tabbar-spacer {
         display: none;
@@ -1996,7 +2077,20 @@
 
       .home-grid>div:last-child {
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .photo-card {
+        width: 180px;
+        margin-top: 0;
+        position: relative;
+        top: 0;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .photo-frame {
+        border-width: 3px;
       }
 
       .photo-card {
@@ -2305,20 +2399,53 @@
 
     <!-- ACTIVITY BAR -->
     <div id="actbar">
-      <button class="act-btn toggle" id="act-toggle" onclick="toggleSidebar()" title="Toggle Explorer">&#9776;</button>
-      <button class="act-btn active" id="act-home" onclick="go('home')" title="Home">HM</button>
-      <button class="act-btn" id="act-skills" onclick="go('skills')" title="Skills">SK</button>
-      <button class="act-btn" id="act-projects" onclick="go('projects')" title="Projects">PR</button>
-      <button class="act-btn" id="act-education" onclick="go('education')" title="Education">ED</button>
-      <button class="act-btn" id="act-services" onclick="go('services')" title="Services">SV</button>
-      <button class="act-btn" id="act-blog" onclick="go('blog')" title="Blog">BL</button>
-      <button class="act-btn" id="act-github" onclick="go('github')" title="GitHub">GH</button>
-      <button class="act-btn" id="act-contact" onclick="go('contact')" title="Contact">CT</button>
+      <button class="act-btn toggle" id="act-toggle" onclick="toggleSidebar()" title="Toggle Explorer">
+        <svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+        <span class="d-icon">&#9776;</span>
+        <span class="m-label">More</span>
+      </button>
+      <button class="act-btn active" id="act-home" onclick="go('home')" title="Home">
+        <svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span class="d-icon">HM</span>
+        <span class="m-label">Home</span>
+      </button>
+      <button class="act-btn d-only" id="act-skills" onclick="go('skills')" title="Skills">
+        <span class="d-icon">SK</span>
+      </button>
+      <button class="act-btn" id="act-projects" onclick="go('projects')" title="Projects">
+        <svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+        <span class="d-icon">PR</span>
+        <span class="m-label">Projects</span>
+      </button>
+      <button class="act-btn d-only" id="act-education" onclick="go('education')" title="Education">
+        <span class="d-icon">ED</span>
+      </button>
+      <button class="act-btn d-only" id="act-services" onclick="go('services')" title="Services">
+        <span class="d-icon">SV</span>
+      </button>
+      <button class="act-btn d-only" id="act-blog" onclick="go('blog')" title="Blog">
+        <span class="d-icon">BL</span>
+      </button>
+      <button class="act-btn" id="act-github" onclick="go('github')" title="GitHub">
+        <svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        <span class="d-icon">GH</span>
+        <span class="m-label">GitHub</span>
+      </button>
+      <button class="act-btn" id="act-contact" onclick="go('contact')" title="Contact">
+        <svg class="m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <span class="d-icon">CT</span>
+        <span class="m-label">Contact</span>
+      </button>
     </div>
 
     <!-- SIDEBAR -->
     <div id="sidebar">
-      <div id="sb-header">EXPLORER</div>
+      <div class="sb-profile-m">
+        <img src="image/1.jpeg" alt="Farheen Imam">
+        <div class="name">Farheen Imam</div>
+        <div class="role">BACKEND DEVELOPER</div>
+      </div>
+      <div id="sb-header" style="margin-top:10px">EXPLORER</div>
       <div id="sb-body">
         <div class="sb-section">
           <div class="sb-section-hd"><span class="sb-arrow">v</span>&nbsp;PORTFOLIO</div>
@@ -2390,16 +2517,20 @@
               </p>
               <div class="stat-row">
                 <div>
-                  <div class="stat-num">6+</div>
+                  <div class="stat-num" id="stat-projects">0</div>
                   <div class="stat-label">PROJECTS</div>
                 </div>
                 <div>
-                  <div class="stat-num">2</div>
+                  <div class="stat-num" id="stat-certs">0</div>
                   <div class="stat-label">CERTIFICATIONS</div>
                 </div>
                 <div>
-                  <div class="stat-num">4.0</div>
+                  <div class="stat-num" id="stat-gpa">0</div>
                   <div class="stat-label">GPA</div>
+                </div>
+                <div>
+                  <div class="stat-num" id="stat-contribs">0</div>
+                  <div class="stat-label">CONTRIBS</div>
                 </div>
               </div>
               <div class="tag-row">
@@ -2425,9 +2556,9 @@
                 </div>
               </div>
               <div class="avail-badge"
-                style="margin-top:14px;display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg3);">
-                <div class="pulse-dot"></div>
-                <span style="font-size:10px;color:var(--text-2)">open to opportunities</span>
+                style="margin-top:14px;display:flex;align-items:center;gap:10px;padding:10px 16px;border:1px solid var(--purple-lo);border-radius:12px;background:var(--purple-dim);box-shadow:0 4px 15px rgba(203,166,247,0.1);">
+                <div class="pulse-dot" style="background:var(--purple)"></div>
+                <span style="font-size:11px;color:var(--purple);font-weight:600;letter-spacing:0.5px;text-transform:uppercase;">open to opportunities</span>
               </div>
             </div>
           </div>
@@ -2936,9 +3067,12 @@
                   <div class="cp-arr">&rarr;</div>
                 </a>
               </div>
-              <div class="open-strip">
-                <div class="pulse-dot"></div>open to &nbsp;<span class="hi">internships &middot; collaborations &middot;
-                  learning</span>
+              <div class="open-strip" style="margin-top:20px;display:flex;align-items:center;gap:12px;padding:12px 18px;background:rgba(var(--bg2-rgb),0.5);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);">
+                <div class="pulse-dot" style="background:var(--green)"></div>
+                <div style="font-size:12px;color:var(--text-2);letter-spacing:0.3px">
+                  <span style="color:var(--text-4);font-weight:600;margin-right:4px">STATUS:</span>
+                  Open to <span class="hi" style="color:var(--green);font-weight:600">internships &middot; collaborations &middot; learning</span>
+                </div>
               </div>
             </div>
             <div class="contact-img-block">
@@ -2971,15 +3105,14 @@
       const sb = document.getElementById('sidebar');
       const isMobile = window.innerWidth <= 640;
       if (isMobile) {
-        // On mobile: toggle collapsed so :not(.collapsed) CSS shows it
-        sb.classList.toggle('collapsed');
+        sb.classList.toggle('mobile-open');
         // Add/remove backdrop
         let bd = document.getElementById('sb-backdrop');
-        if (!sb.classList.contains('collapsed')) {
+        if (sb.classList.contains('mobile-open')) {
           if (!bd) {
             bd = document.createElement('div');
             bd.id = 'sb-backdrop';
-            bd.style.cssText = 'position:fixed;inset:0;z-index:29;background:rgba(0,0,0,0.45);';
+            bd.style.cssText = 'position:fixed;inset:0;z-index:29;background:rgba(0,0,0,0.6);backdrop-filter:blur(2px);';
             bd.addEventListener('click', () => toggleSidebar());
             document.body.appendChild(bd);
           }
@@ -3004,6 +3137,35 @@
       document.getElementById('act-' + id).classList.add('active');
       document.getElementById('panel-' + id).scrollTop = 0;
       if (typeof syncCanvases === 'function') requestAnimationFrame(syncCanvases);
+
+      // Trigger counter animations
+      if (id === 'home') {
+        animateValue("stat-projects", 0, 6, 1500, "+");
+        animateValue("stat-certs", 0, 2, 1000);
+        animateValue("stat-gpa", 0, 4.0, 2000, "", true);
+        animateValue("stat-contribs", 0, 150, 2500, "+");
+      }
+      if (id === 'github') {
+        if (typeof animGhCounters === 'function') animGhCounters();
+      }
+    }
+
+    function animateValue(id, start, end, duration, suffix = "", isFloat = false) {
+      const obj = document.getElementById(id);
+      if (!obj) return;
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const value = isFloat 
+          ? (progress * (end - start) + start).toFixed(1)
+          : Math.floor(progress * (end - start) + start);
+        obj.innerHTML = value + suffix;
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
     }
 
     function toggleTheme() {
@@ -3560,6 +3722,7 @@
       buildSparkline();
       animGhCounters();
       animGhCells();
+      go('home'); // Ensure home animations and state are initialized
     }, 100);
 
     window.addEventListener('resize', buildSparkline);
