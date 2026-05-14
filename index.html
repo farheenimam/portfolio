@@ -202,12 +202,33 @@
       border-radius: 50%;
     }
 
-    .tb-title {
+    .tb-nav {
       flex: 1;
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .tb-nav-item {
       font-size: 11px;
       color: var(--text-3);
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.2s;
       letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .tb-nav-item:hover {
+      color: var(--text-1);
+      background: var(--border);
+    }
+
+    .tb-nav-item.active {
+      color: var(--purple);
+      background: var(--purple-dim);
     }
 
     .theme-btn {
@@ -539,59 +560,8 @@
       flex-shrink: 0;
     }
 
-    .sb-profile {
-      border-top: 1px solid var(--border);
-      padding: 10px 12px;
-      flex-shrink: 0;
-    }
-
-    .profile-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .profile-photo-xs {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      overflow: hidden;
-      flex-shrink: 0;
-      border: 1px solid var(--purple-lo);
-    }
-
-    .profile-photo-xs img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      filter: var(--img-filter);
-    }
-
-    .profile-xs-name {
-      font-size: 11px;
-      color: var(--text-1);
-      font-weight: 600;
-    }
-
-    .profile-xs-role {
-      font-size: 8px;
-      color: var(--text-3);
-      letter-spacing: 0.5px;
-      margin-top: 1px;
-    }
-
-    .avail-xs {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      margin-top: 7px;
-      padding: 4px 8px;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      font-size: 9px;
-      color: var(--text-3);
+    .sb-profile, .sb-profile-m {
+      display: none !important;
     }
 
     .pulse-dot {
@@ -1885,8 +1855,13 @@
         padding: 0 10px;
       }
 
-      .tb-title {
-        font-size: 10px;
+      .tb-nav {
+        gap: 6px;
+      }
+
+      .tb-nav-item {
+        font-size: 9px;
+        padding: 2px 4px;
       }
 
       #menubar {
@@ -2253,8 +2228,8 @@
         gap: 6px;
       }
 
-      .tb-title {
-        font-size: 9.5px;
+      .tb-nav {
+        display: none;
       }
 
       .tb-dot {
@@ -2345,7 +2320,16 @@
       <div class="tb-dot" style="background:#febc2e"></div>
       <div class="tb-dot" style="background:#28c840"></div>
     </div>
-    <div class="tb-title">portfolio.farheen &mdash; workspace</div>
+    <div class="tb-nav">
+      <div class="tb-nav-item active" onclick="go('home')">Home</div>
+      <div class="tb-nav-item" onclick="go('skills')">Skills</div>
+      <div class="tb-nav-item" onclick="go('projects')">Projects</div>
+      <div class="tb-nav-item" onclick="go('education')">Education</div>
+      <div class="tb-nav-item" onclick="go('services')">Services</div>
+      <div class="tb-nav-item" onclick="go('blog')">Blog</div>
+      <div class="tb-nav-item" onclick="go('github')">GitHub</div>
+      <div class="tb-nav-item" onclick="go('contact')">Contact</div>
+    </div>
     <button class="theme-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle theme">
       <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
         stroke-linejoin="round">
@@ -2440,11 +2424,6 @@
 
     <!-- SIDEBAR -->
     <div id="sidebar">
-      <div class="sb-profile-m">
-        <img src="image/1.jpeg" alt="Farheen Imam">
-        <div class="name">Farheen Imam</div>
-        <div class="role">BACKEND DEVELOPER</div>
-      </div>
       <div id="sb-header" style="margin-top:10px">EXPLORER</div>
       <div id="sb-body">
         <div class="sb-section">
@@ -2480,20 +2459,6 @@
           <div class="sb-stack-item">
             <div class="lang-dot" style="background:#cba6f7"></div>Spring Boot
           </div>
-        </div>
-      </div>
-      <div class="sb-profile">
-        <div class="profile-row">
-          <div class="profile-photo-xs">
-            <img src="image/1.jpeg" alt="Farheen Imam" />
-          </div>
-          <div>
-            <div class="profile-xs-name">Farheen Imam</div>
-            <div class="profile-xs-role">BACKEND DEVELOPER</div>
-          </div>
-        </div>
-        <div class="avail-xs">
-          <div class="pulse-dot"></div>available &middot; Karachi, PK
         </div>
       </div>
     </div>
@@ -3104,15 +3069,17 @@
     function toggleSidebar() {
       const sb = document.getElementById('sidebar');
       const isMobile = window.innerWidth <= 640;
+      
+      // Manage backdrop for both mobile and desktop if desired
+      let bd = document.getElementById('sb-backdrop');
+      
       if (isMobile) {
         sb.classList.toggle('mobile-open');
-        // Add/remove backdrop
-        let bd = document.getElementById('sb-backdrop');
         if (sb.classList.contains('mobile-open')) {
           if (!bd) {
             bd = document.createElement('div');
             bd.id = 'sb-backdrop';
-            bd.style.cssText = 'position:fixed;inset:0;z-index:29;background:rgba(0,0,0,0.6);backdrop-filter:blur(2px);';
+            bd.style.cssText = 'position:fixed;inset:0;z-index:29;background:rgba(0,0,0,0.4);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:all 0.3s;';
             bd.addEventListener('click', () => toggleSidebar());
             document.body.appendChild(bd);
           }
@@ -3122,6 +3089,20 @@
       } else {
         sb.classList.toggle('collapsed');
         document.body.classList.toggle('sb-collapsed', sb.classList.contains('collapsed'));
+        
+        // Blur for desktop when sidebar is open (optional, but requested "whole screen blurred")
+        // If sidebar is NOT collapsed, it's "open".
+        if (!sb.classList.contains('collapsed')) {
+           if (!bd) {
+            bd = document.createElement('div');
+            bd.id = 'sb-backdrop';
+            bd.style.cssText = 'position:fixed;inset:0;z-index:4;background:rgba(0,0,0,0.15);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);pointer-events:none;transition:all 0.3s;';
+            document.body.appendChild(bd);
+          }
+        } else {
+          if (bd) bd.remove();
+        }
+        
         if (typeof syncCanvases === 'function') requestAnimationFrame(syncCanvases);
       }
     }
@@ -3131,10 +3112,20 @@
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.sb-item').forEach(n => n.classList.remove('active'));
       document.querySelectorAll('.act-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tb-nav-item').forEach(i => i.classList.remove('active'));
+
       document.getElementById('panel-' + id).classList.add('active');
       document.getElementById('tab-' + id).classList.add('active');
       document.getElementById('nav-' + id).classList.add('active');
       document.getElementById('act-' + id).classList.add('active');
+      
+      // Find the nav item in the title bar and activate it
+      const navItems = document.querySelectorAll('.tb-nav-item');
+      navItems.forEach(item => {
+        if (item.textContent.toLowerCase() === id.toLowerCase()) {
+          item.classList.add('active');
+        }
+      });
       document.getElementById('panel-' + id).scrollTop = 0;
       if (typeof syncCanvases === 'function') requestAnimationFrame(syncCanvases);
 
